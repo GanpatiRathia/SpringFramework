@@ -1,0 +1,51 @@
+# Ignore build artifacts
+*/target/
+*.jar
+*.war
+*.ear
+
+# Gradle specific files
+*/.gradle/
+*/build/
+*!gradle/wrapper/gradle-wrapper.jar  # Keep the Gradle wrapper
+
+# Ignore local environment settings
+*.iml
+*.idea/
+*.class
+*.log
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+*Thumbs.db
+
+# Eclipse & IntelliJ IDEA project files
+*/.settings/
+*/.project
+*/.classpath
+*/.vscode/
+
+# Logs & temp files
+*/log/
+*/out/
+*/bin/
+*/*.log
+
+# Ignore application properties (if sensitive)
+*application*.properties
+*application*.yml
+*.env
+
+# Ignore Maven dependencies
+*/.mvn/
+*mvnw
+*mvnw.cmd
+
+# Ignore Node.js (if frontend exists)
+*/node_modules/
+*package-lock.json
+*yarn.lock
+
+# for Project _01_Spring_Initializer specific
+_01_Spring_Initializer/*.git*
