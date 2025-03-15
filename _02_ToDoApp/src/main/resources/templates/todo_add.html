@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form action="/todoNew" method="post">
+        <input type="text" name="todoItem" placeholder="New task" required>
+        <select name="status">
+            <option value="Yes">Completed</option>
+            <option value="No">Not Completed</option>
+        </select>
+        <button type="submit">Add</button>
+    </form>
+
+    <ul>
+        <li th:each="todo : ${todos}">
+            <span th:text="${todo.todoItem}"></span> - 
+            <span th:text="${todo.completed}"></span>
+            <form th:action="@{/todoUpdate/{id}(id=${todo.id})}" method="post">
+                <button type="submit">Toggle Status</button>
+            </form>
+            <form th:action="@{/todoDelete/{id}(id=${todo.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+</body>
+</html>
