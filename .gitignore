@@ -49,3 +49,8 @@
 
 # for Project _01_Spring_Initializer specific
 _01_Spring_Initializer/*.git*
+_02_ToDoApp/*.git*
+_03_ECommerceApp/*.git*
+_04_StockMarketPortfolioTracker/*.git*
+_05_AIPoweredChatBot/*.git*
+_06_MicroserviceBasedBankingSystem/*.git*
