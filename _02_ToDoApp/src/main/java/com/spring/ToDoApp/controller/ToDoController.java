@@ -22,20 +22,12 @@ public class ToDoController {
      * Root URL mapping (redirects to index page).
      */
     @GetMapping("/")
-    public String index() {
-        return "todo_add";  // ✅ No need for ".html", Spring Boot resolves view names automatically
-    }
-
-
-    /**
-     * Retrieves and displays all To-Do items.
-     */
-   
-    @GetMapping("/todos")
-    public String todos(Model model) {
+    public String todoList(Model model, @RequestParam(name = "showCompleted", defaultValue = "false") boolean showCompleted) {
         model.addAttribute("todos", todoRepository.findAll());
-        return "todo_view";  // Return the name of the view (todos.html or todos.jsp, etc.)
+        model.addAttribute("showCompleted", showCompleted);
+        return "todo";
     }
+
     /**
      * Adds a new To-Do item.
      */
@@ -43,7 +35,7 @@ public class ToDoController {
     public String add(@RequestParam String todoItem, @RequestParam String status, Model model) {
         ToDo todo = new ToDo(todoItem, status);
         todoRepository.save(todo);
-        return "redirect:/todos";
+        return "redirect:/";
     }
 
     /**
@@ -52,7 +44,7 @@ public class ToDoController {
     @PostMapping("/todoDelete/{id}")
     public String delete(@PathVariable long id) {
         todoRepository.deleteById(id);
-        return "redirect:/todos";
+        return "redirect:/";
     }
 
     /**
@@ -66,6 +58,11 @@ public class ToDoController {
             todo.setCompleted(todo.getCompleted().equals("Yes") ? "No" : "Yes");
             todoRepository.save(todo);
         }
-        return "redirect:/todos";
+        return "redirect:/";
+    }
+
+    @GetMapping("/showCompleted")
+    public String showCompleted(Model model){
+        return "redirect:/?showCompleted=true";
     }
 }
