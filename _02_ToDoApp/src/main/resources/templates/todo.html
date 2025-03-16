@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>To-Do List</title>
-    <style>
-        .completed {
-            text-decoration: line-through;
-            color: gray;
-        }
-    </style>
+    <title>My Stylish To-Do List</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <h1>To-Do List</h1>
+    <div class="container">
+        <h1>My Stylish To-Do List</h1>
 
-    <form action="/todoNew" method="post">
-        <input type="text" name="todoItem" placeholder="New task" required>
-        <select name="status">
-            <option value="No">Not Completed</option>
-            <option value="Yes">Completed</option>
-        </select>
-        <button type="submit">Add</button>
-    </form>
+        <form action="/todoNew" method="post">
+            <input type="text" name="todoItem" placeholder="New task" required>
+            <select name="status">
+                <option value="No">Not Completed</option>
+                <option value="Yes">Completed</option>
+            </select>
+            <button type="submit" class="add">Add</button>
+        </form>
 
-    <h2>Incomplete Tasks</h2>
-    <ul>
-        <li th:each="todo : ${todos}" th:if="${todo.completed == 'No'}">
-            <span th:text="${todo.todoItem}"></span>
-            <form th:if="${todo != null and todo.id != null}" th:action="@{/todoUpdate/{id}(id=${todo.id})}" method="post" style="display: inline;">
-                <button type="submit">Complete</button>
-            </form>
-            <form th:if="${todo != null and todo.id != null}" th:action="@{/todoDelete/{id}(id=${todo.id})}" method="post" style="display: inline;">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
-    </ul>
+        <h2>Incomplete Tasks</h2>
+        <ul>
+            <li th:each="todo : ${todos}" th:if="${todo.completed == 'No'}">
+                <span th:text="${todo.todoItem}"></span>
+                <div class="task-actions">
+                    <form th:if="${todo != null and todo.id != null}" th:action="@{/todoUpdate/{id}(id=${todo.id})}" method="post">
+                        <button type="submit" class="complete">Complete</button>
+                    </form>
+                    <form th:if="${todo != null and todo.id != null}" th:action="@{/todoDelete/{id}(id=${todo.id})}" method="post">
+                        <button type="submit" class="delete">Delete</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
 
-    <h2>Completed Tasks</h2>
-    <form action="/showCompleted" method="get">
-        <button type="submit">Show Completed Tasks</button>
-    </form>
+        <h2>Completed Tasks</h2>
+        <form action="/showCompleted" method="get">
+            <button type="submit" class="show">Show Completed Tasks</button>
+        </form>
 
-    <ul th:if="${showCompleted}">
-        <li th:each="todo : ${todos}" th:if="${todo.completed == 'Yes'}" class="completed">
-            <span th:text="${todo.todoItem}"></span>
-            <form th:if="${todo != null and todo.id != null}" th:action="@{/todoDelete/{id}(id=${todo.id})}" method="post" style="display: inline;">
-                <button type="submit">Delete</button>
-            </form>
-        </li>
-    </ul>
-
+        <ul th:if="${showCompleted}">
+            <li th:each="todo : ${todos}" th:if="${todo.completed == 'Yes'}" class="completed">
+                <span th:text="${todo.todoItem}"></span>
+                <div class="task-actions">
+                    <form th:if="${todo != null and todo.id != null}" th:action="@{/todoDelete/{id}(id=${todo.id})}" method="post">
+                        <button type="submit" class="delete">Delete</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
 </body>
 </html>
